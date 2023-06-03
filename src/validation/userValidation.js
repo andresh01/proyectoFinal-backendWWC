@@ -1,9 +1,10 @@
 const Joi = require("joi");
+Joi.objectId = require('joi-objectid')(Joi);
 
-const id = Joi.string().min(3);
+const id = Joi.objectId();
 const name = Joi.string().min(2).max(20);
-const email = Joi.String().min(5);
-const password = Joi.String().min(4);
+const email = Joi.string().min(5);
+const password = Joi.string().min(4);
 const role = Joi.number().integer().positive().min(0);
 
 const createUserValidation = Joi.object({

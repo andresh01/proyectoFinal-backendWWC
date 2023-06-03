@@ -1,6 +1,7 @@
 const Joi = require("joi");
+Joi.objectId = require('joi-objectid')(Joi);
 
-const id = Joi.string().min(3);
+const id = Joi.objectId();
 const name = Joi.string().min(2).max(20);
 const price = Joi.number().integer();
 const availableUnits = Joi.number().integer().positive().min(0);
