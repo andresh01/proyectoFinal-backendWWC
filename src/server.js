@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require('express');
-const mongodb = require('./utils/mongodb')
-const { mongoose } = require('mongoose');
+const mongodb = require('./utils/mongodb');
+const { errors, errorHandler, errorPath } = require('./middlewares/errorHandler')
 const PORT = process.env.PORT;
 
 const app = express();
@@ -9,6 +9,9 @@ const app = express();
 app.use(express.json());
 app.use("/", require('./routes/userRoute'));
 app.use("/", require('./routes/productRoute'));
+app.use(errors);
+app.use(errorHandler);
+app.use(errorPath);
 
 const start = async () => {
     try {

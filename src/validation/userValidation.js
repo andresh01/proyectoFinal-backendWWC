@@ -32,4 +32,5 @@ const deleteUserValidation = Joi.object({
     id : id.required()
 })
 
+
 module.exports = { createUserValidation, updateUserValidation, getUserValidation, deleteUserValidation } 
