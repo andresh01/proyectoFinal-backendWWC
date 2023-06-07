@@ -9,6 +9,7 @@ const app = express();
 app.use(express.json());
 app.use("/", require('./routes/userRoute'));
 app.use("/", require('./routes/productRoute'));
+app.use("/", require('./routes/loginRoute'))
 app.use(errors);
 app.use(errorHandler);
 app.use(errorPath);

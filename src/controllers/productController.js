@@ -13,6 +13,7 @@ exports.getProductById = async (req, res, next) => {
     const { id } = req.params;
     try {
         const products = await Products.find({ _id: id });
+        
         if (products.length == 0) {
             res.status(404).json({
                 status: 404,
@@ -22,7 +23,7 @@ exports.getProductById = async (req, res, next) => {
             res.status(200).json({
                 status: 200,
                 message: "product found",
-                product: products
+                product: products,
             });
         }
     } catch (error) {
@@ -70,6 +71,7 @@ exports.updateProduct = async (req, res, next) => {
 
 exports.deleteProduct = async (req, res, next) => {
     const { id } = req.params;
+    
     try {
         const product = await Products.findOneAndDelete({ _id: id });
         if (product == null) {
