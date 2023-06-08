@@ -1,4 +1,4 @@
-const {User} = require('../models/userModel');
+const { User } = require('../models/userModel');
 
 
 exports.getAllUser = async (_, res, next) => {
@@ -33,14 +33,23 @@ exports.getUserById = async (req, res, next) => {
 
 exports.addNewUser = async (req, res, next) => {
     const user = req.body;
-
+    const { email } = user;
     try {
-        const resp = await User.create(user);
-        res.status(200).json({
-            status: 200,
-            message: "User was created",
-            User: resp
-        });
+        const emailExist = await User.find({ email: email });
+
+        if (emailExist.length !== 0) {
+            res.status(400).json({
+                status: 400,
+                message: "User already exist",
+            });
+        } else {
+            const resp = await User.create(user);
+            res.status(200).json({
+                status: 200,
+                message: "User was created",
+                User: resp
+            });
+        }
     } catch (error) {
         next(error);
     }

@@ -33,8 +33,9 @@ exports.getProductById = async (req, res, next) => {
 
 exports.addNewProduct = async (req, res, next) => {
     const product = req.body;
-
+    
     try {
+        
         const resp = await Products.create(product);
         res.status(200).json({
             status: 200,

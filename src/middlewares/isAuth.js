@@ -1,17 +1,16 @@
 const jwt = require("jsonwebtoken");
-const { token } = require('../controllers/authController')
 
 exports.isAuthAdmin = (req, res, next) => {
-console.log(token)
-    //const token = req.headers.authorization;
+
+    const tokenJwt = req.headers.token;
     try {
-        let decodeToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
+        let decodeToken = jwt.verify(tokenJwt, process.env.JWT_SECRET_KEY)
         
         if(decodeToken.role === 1){
             next()
         } else{
             res.status(401).json({
-                message: 'Access denied'
+                message: 'Access forbidden'
             })
         }
     } catch (error) {
@@ -26,15 +25,15 @@ console.log(token)
 
 exports.isAuthUser = (req, res, next) => {
 
-    const token = req.headers.authorization;
+    const tokenJwt = req.headers.token;
     try {
-        let decodeToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
+        let decodeToken = jwt.verify(tokenJwt, process.env.JWT_SECRET_KEY)
         
         if(decodeToken.role === 2){
             next()
         } else{
             res.status(401).json({
-                message: 'Access denied'
+                message: 'Access forbidden'
             })
         }
     } catch (error) {
