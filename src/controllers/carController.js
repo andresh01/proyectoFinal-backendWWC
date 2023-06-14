@@ -35,7 +35,7 @@ const getCar = async (req, res, next) => {
 
 
 
-exports.addToCar = async (req, res, next) => {
+const addToCar = async (req, res, next) => {
     const { product_id, quantity } = req.body;
 
     const tokenJwt = req.headers.token;
@@ -60,7 +60,7 @@ exports.addToCar = async (req, res, next) => {
     } 
 }
 
-exports.updateQuantity = async (req, res, next) => {
+const updateQuantity = async (req, res, next) => {
     const { product_id, quantity } = req.body;
     
     const tokenJwt = req.headers.token;
@@ -88,7 +88,7 @@ exports.updateQuantity = async (req, res, next) => {
     }
 }
 
-exports.deleteProductCar = async (req, res, next) => {
+const deleteProductCar = async (req, res, next) => {
     const { id } = req.params;
     
     try {
@@ -112,4 +112,4 @@ exports.deleteProductCar = async (req, res, next) => {
 
 
 
-module.exports = { getCar }
+module.exports = { getCar, addToCar, updateQuantity, deleteProductCar }

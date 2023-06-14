@@ -12,7 +12,7 @@ const BASE = "/api/v1/products";
 routes.get(`${BASE}/health`, (_, res) => res.send("check")); //sirve para evaluar el tiempo de respuesta y saber la eficiencia del servidor
 
 routes.get(`${BASE}`, getAllProducts)
-routes.get(`${BASE}/:id`, isAuth(), validatorHandler(getProductValidation, "params"), getProductById)
+routes.get(`${BASE}/:id`, validatorHandler(getProductValidation, "params"), getProductById)
 routes.post(BASE, isAuth(1), validatorHandler(createProductValidation, "body"), addNewProduct) 
 routes.patch(`${BASE}/:id`, isAuth(1), validatorHandler(updateProductValidation, "params"), updateProduct)
 routes.delete(`${BASE}/:id`, isAuth(1), validatorHandler(deleteProductValidation, "params") , deleteProduct)

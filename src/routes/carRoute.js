@@ -13,9 +13,9 @@ const BASE = "/api/v1/car";
 routes.get(`${BASE}/health`, (_, res) => res.send("check")); //sirve para evaluar el tiempo de respuesta y saber la eficiencia del servidor
 
 routes.get(`${BASE}`, isAuth(), getCar)
-/* routes.post(BASE, isAuth(), validatorHandler(addProductCarValidation, "body"), addToCar ) 
+routes.post(`${BASE}`, isAuth(), validatorHandler(addProductCarValidation, "body"), addToCar ) 
 routes.patch(`${BASE}`, isAuth(), validatorHandler(updateQuantityValidation, "body"),updateQuantity )
 routes.delete(`${BASE}/:id`, isAuth())
- */
+
 
 module.exports = routes;
