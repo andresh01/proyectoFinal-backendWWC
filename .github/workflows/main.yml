@@ -21,10 +21,10 @@ jobs:
           version: 18
         
       - name: Install & Build
-        run: | 
-          npm ci --silent
-          npm run build
-        working-directory: .
+        run: npm ci --silent 
+          #npm ci --silent
+          #npm run build
+        #working-directory: .
         
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3
