@@ -5,7 +5,7 @@ on:
   
   push:
     branches: 
-    - master
+    - main
     - feature/*
 
 jobs:
@@ -32,4 +32,4 @@ jobs:
           name: build
           path: |
             src/*.js
-            ignore: node_modules
+            !node_modules
