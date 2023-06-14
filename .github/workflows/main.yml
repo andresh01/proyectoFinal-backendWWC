@@ -31,5 +31,5 @@ jobs:
         with:
           name: build
           path: |
-            src/*js
-            !node_modules
+            src/*.js
+            ignore: node_modules
