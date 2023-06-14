@@ -1,9 +1,32 @@
 const { Car } = require('../models/carModel');
 const jwt = require('jsonwebtoken');
+const mongoose = require("mongoose");
 
-exports.getCar = async (_, res, next) => {
+const getCar = async (req, res, next) => {
+    const tokenJwt = req.headers.token;
+
     try {
-        const car = await Car.find();
+        const { user_id } = jwt.verify(tokenJwt, process.env.JWT_SECRET_KEY);
+        
+        const car = await Car.aggregate([
+            {$match:{user_id:new mongoose.Types.ObjectId(user_id)}},
+            {
+                $lookup:{
+                    from: 'products',
+                    localField: 'product_id',
+                    foreignField: '_id',
+                    as: 'products'
+                }
+            },
+            {
+                $unwind: '$products',
+            },
+            {
+                $project:{
+                    _id:1, product_id:1, quantity:1, products:{name:1, quantity:1, price:1}
+                }
+            }
+        ]);
         res.status(200).json(car);
     } catch (error) {
         next(error);
@@ -65,11 +88,11 @@ exports.updateQuantity = async (req, res, next) => {
     }
 }
 
-exports.deleteProduct = async (req, res, next) => {
-    /* const { id } = req.params;
+exports.deleteProductCar = async (req, res, next) => {
+    const { id } = req.params;
     
     try {
-        const product = await Products.findOneAndDelete({ _id: id });
+        const product = await Car.findOneAndDelete({ _id: id });
         if (product == null) {
             res.status(404).json({
                 status: 404,
@@ -84,5 +107,9 @@ exports.deleteProduct = async (req, res, next) => {
         }
     } catch (error) {
         next(error);
-    } */
+    } 
 }
+
+
+
+module.exports = { getCar }
