@@ -7,11 +7,11 @@ const getCar = async (req, res, next) => {
 
     try {
         const { user_id } = jwt.verify(tokenJwt, process.env.JWT_SECRET_KEY);
-        
+
         const car = await Car.aggregate([
-            {$match:{user_id:new mongoose.Types.ObjectId(user_id)}},
+            { $match: { user_id: new mongoose.Types.ObjectId(user_id) } },
             {
-                $lookup:{
+                $lookup: {
                     from: 'products',
                     localField: 'product_id',
                     foreignField: '_id',
@@ -22,8 +22,8 @@ const getCar = async (req, res, next) => {
                 $unwind: '$products',
             },
             {
-                $project:{
-                    _id:1, product_id:1, quantity:1, products:{name:1, quantity:1, price:1}
+                $project: {
+                    _id: 1, product_id: 1, quantity: 1, products: { name: 1, quantity: 1, price: 1 }
                 }
             }
         ]);
@@ -41,35 +41,47 @@ const addToCar = async (req, res, next) => {
     const tokenJwt = req.headers.token;
 
     try {
-    const { user_id } = jwt.verify(tokenJwt, process.env.JWT_SECRET_KEY);
 
-    const shoppingCar = {
-        user_id: user_id,
-        product_id: product_id,
-        quantity: quantity
-    }
+        const { user_id } = jwt.verify(tokenJwt, process.env.JWT_SECRET_KEY);
 
-        const resp = await Car.create(shoppingCar);
-        res.status(200).json({
-            status: 200,
-            message: "product was added",
-            product: resp
-        });
+        const productExist = await Car.find({ user_id: user_id } && { product_id: product_id });
+
+        if (productExist.length != 0) {
+            res.status(400).json({
+                status: 400,
+                message: "product already exist",
+            })
+        } else {
+
+
+            const shoppingCar = {
+                user_id: user_id,
+                product_id: product_id,
+                quantity: quantity
+            }
+
+            const resp = await Car.create(shoppingCar);
+            res.status(200).json({
+                status: 200,
+                message: "product was added",
+                product: resp
+            });
+        }
     } catch (error) {
         next(error);
-    } 
+    }
 }
 
 const updateQuantity = async (req, res, next) => {
     const { product_id, quantity } = req.body;
-    
+
     const tokenJwt = req.headers.token;
 
     try {
         const { user_id } = jwt.verify(tokenJwt, process.env.JWT_SECRET_KEY);
 
-        const productCar = await Car.findOneAndUpdate({ _id: user_id } && {product_id: product_id}, { $set: { quantity: quantity } });
-       
+        const productCar = await Car.findOneAndUpdate({ _id: user_id } && { product_id: product_id }, { $set: { quantity: quantity } });
+
         if (productCar == null) {
             res.status(404).json({
                 status: 404,
@@ -90,7 +102,7 @@ const updateQuantity = async (req, res, next) => {
 
 const deleteProductCar = async (req, res, next) => {
     const { id } = req.params;
-    
+
     try {
         const product = await Car.findOneAndDelete({ _id: id });
         if (product == null) {
@@ -107,7 +119,7 @@ const deleteProductCar = async (req, res, next) => {
         }
     } catch (error) {
         next(error);
-    } 
+    }
 }
 
 
