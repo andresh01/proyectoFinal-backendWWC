@@ -2,7 +2,7 @@ const { Router } = require("express");
 
 const validatorHandler = require("../middlewares/validatorHandler");
 const { addProductCarValidation, updateQuantityValidation } = require('../validation/carValidation')
-const { getCar, addToCar, updateQuantity } = require("../controllers/carController");
+const { getCar, addToCar, updateQuantity, deleteProductCar } = require("../controllers/carController");
 const { isAuth } = require('../middlewares/isAuth');
 
 const routes = new Router();
@@ -15,7 +15,7 @@ routes.get(`${BASE}/health`, (_, res) => res.send("check")); //sirve para evalua
 routes.get(`${BASE}`, isAuth(), getCar)
 routes.post(`${BASE}`, isAuth(), validatorHandler(addProductCarValidation, "body"), addToCar ) 
 routes.patch(`${BASE}`, isAuth(), validatorHandler(updateQuantityValidation, "body"),updateQuantity )
-routes.delete(`${BASE}/:id`, isAuth())
+routes.delete(`${BASE}/:id`, isAuth(), deleteProductCar )
 
 
 module.exports = routes;

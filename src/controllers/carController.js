@@ -103,14 +103,19 @@ const updateQuantity = async (req, res, next) => {
 const deleteProductCar = async (req, res, next) => {
     const { id } = req.params;
 
+    const tokenJwt = req.headers.token;
     try {
-        const product = await Car.findOneAndDelete({ _id: id });
+        const { user_id } = jwt.verify(tokenJwt, process.env.JWT_SECRET_KEY);
+
+        const product = await Car.findOneAndDelete({ user_id: user_id } && { product_id: id });
+        
         if (product == null) {
             res.status(404).json({
                 status: 404,
-                message: "product not found",
+                message: "product does not exist",
             })
         } else {
+            
             res.status(200).json({
                 status: 200,
                 message: "product was deleted",
