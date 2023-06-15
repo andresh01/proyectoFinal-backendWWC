@@ -18,13 +18,10 @@ const updateQuantityValidation = Joi.object({
     quantity : quantity.required(),
 })
 
-/* const getUserValidation = Joi.object({
-    id : id.required(),
-}) */
-/* 
-const deleteUserValidation = Joi.object({
+
+const deleteProductValidator = Joi.object({
     id : id.required()
-}) */
+})
 
 
-module.exports = { addProductCarValidation, updateQuantityValidation } 
+module.exports = { addProductCarValidation, updateQuantityValidation, deleteProductValidator } 
