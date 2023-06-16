@@ -19,7 +19,7 @@ exports.loginIn = async (req, res, next) => {
         if (user.length !== 0) {
 
             token = jwt.sign(
-                {user_id: user[0]._id, email: email, role: user[0].role},
+                {user_id: user[0]._id,name: user[0].name, email: email, role: user[0].role},
                 process.env.JWT_SECRET_KEY,
                 { expiresIn: "1h"}
             )

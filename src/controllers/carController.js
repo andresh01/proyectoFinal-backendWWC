@@ -2,6 +2,7 @@ const { Car } = require('../models/carModel');
 const jwt = require('jsonwebtoken');
 const mongoose = require("mongoose");
 
+
 const getCar = async (req, res, next) => {
     const tokenJwt = req.headers.token;
 
@@ -27,7 +28,10 @@ const getCar = async (req, res, next) => {
                 }
             }
         ]);
+
         res.status(200).json(car);
+        return car;
+        
     } catch (error) {
         next(error);
     }
@@ -44,7 +48,9 @@ const addToCar = async (req, res, next) => {
 
         const { user_id } = jwt.verify(tokenJwt, process.env.JWT_SECRET_KEY);
 
-        const productExist = await Car.find({ user_id: user_id } && { product_id: product_id });
+
+        const productExist = await Car.find({ user_id: user_id },{ product_id: product_id });
+
 
         if (productExist.length != 0) {
             res.status(400).json({
