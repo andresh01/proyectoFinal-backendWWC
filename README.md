@@ -66,7 +66,8 @@ En la url: `http://localhost:3000/api/v1/login?email=&password=` deberas añadir
 
 ## Products
 ingresando la ruta `http://localhost:3000/api/v1/products` te devuelve el listado de los productos existentes, el formato de la respuesta es el siguiente:
-`[
+```json
+[
     {
         "_id": "64796510673b8dc0e25801dc",
         "name": "chaqueta",
@@ -85,20 +86,23 @@ ingresando la ruta `http://localhost:3000/api/v1/products` te devuelve el listad
         "price": 5000,
         "availableUnits": 80
     }
-]`
+]
+```
 
 ## Users
 Como tarea inicial deberas crear un usuario en la siguiente ruta `http://localhost:3000/api/v1/users` pasando como parametro en el body los siguentes datos:
 
-`{
+```json
+{
     "name":"userName" ,
     "email":"email" ,
     "password": "password"
-}`
+}
+```
 
 como respuesta te devolvera el siguiente formato:
-
-`{
+```json
+{
     "status": 200,
     "message": "User was created",
     "User": {
@@ -108,16 +112,19 @@ como respuesta te devolvera el siguiente formato:
         "role": 2,
         "_id": "648bc87b7b202c3993b8d238"
     }
-}`
+}
+```
 
 
 ## Car
 En la ruta `http://localhost:3000/api/v1/car` podemos realizar post de los productos que queramos comprar. En el body se debe enviar el id del producto que deseemos añadir y la cantidad que queremos de ese producto:
 
-`{
+```json
+{
     "product_id": "648bca757b202c3993b8d24b",
     "quantity": 1
-}`
+}
+```
 
 
 ## Order
@@ -137,8 +144,14 @@ Para obtener la informacion de un solo item de cualquier entidad solo se necesit
 ### Create 
 Para crear un item de cualquier entidad es necesario pasar el token en el header y en el body pasar la informacion que se requiera como por ejemplo:
 -   `http://localhost:3000/api/v1/products`    
-    -   `{
-         "name": "televisor",
-         "price": 100000,
-         "availableUnits": 10
-        } `
+-  ```json
+        {
+             "name": "televisor",
+            "price": 100000,
+             "availableUnits": 10
+        } 
+        ```
+
+Visite el siguiente link para mas informacion de como realizar las consultas:
+
+https://gold-shuttle-191700.postman.co/workspace/6f917ff5-2b05-43ff-9cef-bd693befd53c

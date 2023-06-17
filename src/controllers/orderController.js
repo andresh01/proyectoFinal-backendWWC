@@ -4,20 +4,6 @@ const mongoose = require("mongoose");
 const { Car } = require("../models/carModel");
 const { Products } = require("../models/productModel");
 
-/* const getOrder = async (req, res, next) => {
-    const tokenJwt = req.headers.token;
-
-    const { id } = req.params;
-
-    try {
-        const { user_id } = jwt.verify(tokenJwt, process.env.JWT_SECRET_KEY);
-
-        const order = await Order.find({ _id: id });
-        res.status(200).json(order);
-    } catch (error) {
-        next(error);
-    }
-} */
 
 const getAllOrders = async (req, res, next) => {
     try {
