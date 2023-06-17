@@ -8,7 +8,8 @@ const route = new Router();
 
 const BASE = "/api/v1/users";
 
-route.get(`${BASE}/health`, (_, res) => res.send("check")); //sirve para evaluar el tiempo de respuesta y saber la eficiencia del servidor
+//route.get(`${BASE}/health`, (_, res) => res.send("check")); //sirve para evaluar el tiempo de respuesta y saber la eficiencia del servidor
+route.get("/health", (_, res) => res.send("check")); //sirve para evaluar el tiempo de respuesta y saber la eficiencia del servidor
 
 route.get(BASE, isAuth(1), getAllUser);
 route.get(`${BASE}/:id`, isAuth(), validatorHandler(getUserValidation, "params"), getUserById);
