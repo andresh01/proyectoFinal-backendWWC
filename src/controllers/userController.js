@@ -53,7 +53,6 @@ exports.addNewUser = async (req, res, next) => {
                 name: user.name,
                 email: user.email,
                 password: hashPassword,
-                //password: user.password,
                 role: user.role
 
             });

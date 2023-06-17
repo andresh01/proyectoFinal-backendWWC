@@ -49,7 +49,7 @@ const addToCar = async (req, res, next) => {
         const { user_id } = jwt.verify(tokenJwt, process.env.JWT_SECRET_KEY);
 
 
-        const productExist = await Car.find({ user_id: user_id },{ product_id: product_id });
+        const productExist = await Car.find({ user_id: user_id } && { product_id: product_id });
 
 
         if (productExist.length != 0) {
