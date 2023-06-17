@@ -1,6 +1,6 @@
 const { Products } = require('../models/productModel');
 
-exports.getAllProducts = async (_, res, next) => {
+const getAllProducts = async (_, res, next) => {
     try {
         const products = await Products.find();
         res.status(200).json(products);
@@ -9,7 +9,7 @@ exports.getAllProducts = async (_, res, next) => {
     }
 }
 
-exports.getProductById = async (req, res, next) => {
+const getProductById = async (req, res, next) => {
     const { id } = req.params;
     try {
         const products = await Products.find({ _id: id });
@@ -31,7 +31,7 @@ exports.getProductById = async (req, res, next) => {
     }
 }
 
-exports.addNewProduct = async (req, res, next) => {
+const addNewProduct = async (req, res, next) => {
     const product = req.body;
     
     try {
@@ -47,7 +47,7 @@ exports.addNewProduct = async (req, res, next) => {
     }
 }
 
-exports.updateProduct = async (req, res, next) => {
+const updateProduct = async (req, res, next) => {
     const { id } = req.params;
     const updateProduct = req.body;
     try {
@@ -70,7 +70,7 @@ exports.updateProduct = async (req, res, next) => {
     }
 }
 
-exports.deleteProduct = async (req, res, next) => {
+const deleteProduct = async (req, res, next) => {
     const { id } = req.params;
     
     try {
@@ -91,3 +91,5 @@ exports.deleteProduct = async (req, res, next) => {
         next(error);
     }
 }
+
+module.exports = { getAllProducts, getProductById, addNewProduct, updateProduct, deleteProduct}

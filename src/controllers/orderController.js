@@ -2,6 +2,7 @@ const { Order } = require('../models/orderModel');
 const jwt = require('jsonwebtoken');
 const mongoose = require("mongoose");
 const { Car } = require("../models/carModel");
+const { Products } = require("../models/productModel");
 
 /* const getOrder = async (req, res, next) => {
     const tokenJwt = req.headers.token;
@@ -77,7 +78,14 @@ const createNewOrder = async (req, res, next) => {
             product: resp
         });
 
-
+        if(resp) {
+            car.forEach(async element => {
+                productInfo = await Products.find({ _id: element.product_id });
+                
+                let newQuantity = (productInfo[0].availableUnits - element.quantity);
+                await Products.findOneAndUpdate({ _id: element.product_id }, { $set: { availableUnits: newQuantity } });
+            });
+        }
 
     } catch (error) {
         next(error);
