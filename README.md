@@ -7,11 +7,13 @@ Este es un servidor que sirve como carro de compras online donde se almacenan y 
 
 Tabla de contenido | CRUD
 ---|---
-[Inicio](#inicio)| [Car](#car)|
-[Documentacion](#documentacion)| [Read](#read)|
-[login](#login)|[Update](#update)|
-[Products](#products)| [Delete](#delete)|
-[Users](#users)| [Combos](#combos)|
+[Inicio](#inicio)| 
+[Documentacion](#documentacion)| [Delete](#delete)|
+[login](#login)|[Read One](#read one)|
+[Products](#products)| [Create](#create)|
+[Users](#users)| 
+[Car](#car)|
+[Order](#order)|
 
 ## Inicio y configuracion
 
@@ -36,7 +38,8 @@ This means that if we want to build an application then we should use the librar
 
 ## Documentacion
 
- - REST
+ - REST.
+   
  Base url: `http://localhost:puerto/api/v1/`
  esta la url base donde se pueden dirigir a las diferentes rutas que contiene el programa
 
@@ -63,7 +66,7 @@ En la url: `http://localhost:3000/api/v1/login?email=&password=` deberas añadir
 
 ## Products
 ingresando la ruta `http://localhost:3000/api/v1/products` te devuelve el listado de los productos existentes, el formato de la respuesta es el siguiente:
-[
+`[
     {
         "_id": "64796510673b8dc0e25801dc",
         "name": "chaqueta",
@@ -82,18 +85,20 @@ ingresando la ruta `http://localhost:3000/api/v1/products` te devuelve el listad
         "price": 5000,
         "availableUnits": 80
     }
-]
+]`
 
 ## Users
 Como tarea inicial deberas crear un usuario en la siguiente ruta `http://localhost:3000/api/v1/users` pasando como parametro en el body los siguentes datos:
-{
+
+`{
     "name":"userName" ,
     "email":"email" ,
     "password": "password"
-} 
+}`
 
 como respuesta te devolvera el siguiente formato:
-{
+
+`{
     "status": 200,
     "message": "User was created",
     "User": {
@@ -103,19 +108,23 @@ como respuesta te devolvera el siguiente formato:
         "role": 2,
         "_id": "648bc87b7b202c3993b8d238"
     }
-}
+}`
 
 
 ## Car
 En la ruta `http://localhost:3000/api/v1/car` podemos realizar post de los productos que queramos comprar. En el body se debe enviar el id del producto que deseemos añadir y la cantidad que queremos de ese producto:
-{
+
+`{
     "product_id": "648bca757b202c3993b8d24b",
     "quantity": 1
-}
+}`
 
 
 ## Order
 En la url: `http://localhost:3000/api/v1/order` se puede crear una orden de venta de los productos ingresados al carrito de cada usuario solo enviandole en el header el token generado al momento de loguearse
+
+
+## Metodos
 
 ### Delete
 Para realizar un delete en cualquier entidad solo se necesita pasar el token en el header y el id del campo que desee eliminar como parametro:
@@ -128,8 +137,8 @@ Para obtener la informacion de un solo item de cualquier entidad solo se necesit
 ### Create 
 Para crear un item de cualquier entidad es necesario pasar el token en el header y en el body pasar la informacion que se requiera como por ejemplo:
 -   `http://localhost:3000/api/v1/products`    
-    -   {
+    -   `{
          "name": "televisor",
          "price": 100000,
          "availableUnits": 10
-        } 
+        } `
