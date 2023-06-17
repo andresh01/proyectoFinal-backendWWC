@@ -85,6 +85,8 @@ const createNewOrder = async (req, res, next) => {
                 let newQuantity = (productInfo[0].availableUnits - element.quantity);
                 await Products.findOneAndUpdate({ _id: element.product_id }, { $set: { availableUnits: newQuantity } });
             });
+
+            await Car.deleteMany({ user_id: user_id });
         }
 
     } catch (error) {
