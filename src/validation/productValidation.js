@@ -3,7 +3,7 @@ Joi.objectId = require('joi-objectid')(Joi);
 
 const id = Joi.objectId();
 const name = Joi.string().min(2).max(20);
-const price = Joi.number().integer();
+const price = Joi.number().positive();
 const availableUnits = Joi.number().integer().positive().min(0);
 
 const createProductValidation = Joi.object({
